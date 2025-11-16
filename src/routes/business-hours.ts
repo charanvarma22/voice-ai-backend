@@ -46,7 +46,7 @@ router.post('/business-hours', async (req: AuthRequest, res: Response) => {
   const days = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday'];
   for (const day of days) {
     const dayData = parsed.data[day as keyof typeof parsed.data];
-    if (dayData) {
+    if (dayData && typeof dayData === 'object' && 'enabled' in dayData) {
       update[`${day}_enabled`] = dayData.enabled;
       update[`${day}_start`] = dayData.start || null;
       update[`${day}_end`] = dayData.end || null;

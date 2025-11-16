@@ -89,13 +89,13 @@ Fill in these fields:
 
 **Branch**: `main` (or `master` if that's your branch)
 
-**Root Directory**: Leave empty (if code is in root) OR `m1-backend` (if your code is in a subfolder)
+**Root Directory**: Leave empty (code is in root)
 
 **Environment**: Select **"Node"**
 
 **Build Command**: 
 ```
-npm install
+npm install && npm run build
 ```
 
 **Start Command**: 

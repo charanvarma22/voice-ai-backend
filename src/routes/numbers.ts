@@ -22,8 +22,9 @@ router.post('/numbers/purchase', async (req: AuthRequest, res: Response) => {
   const userId = req.userId!;
 
   try {
+    const areaCodeNum = areaCode ? parseInt(areaCode, 10) : undefined;
     const availableNumbers = await twilioClient.availablePhoneNumbers(country)
-      .local.list({ areaCode, limit: 1 });
+      .local.list(areaCodeNum ? { areaCode: areaCodeNum, limit: 1 } : { limit: 1 });
 
     if (availableNumbers.length === 0) {
       return res.status(404).json({ error: 'No numbers available for this area code' });

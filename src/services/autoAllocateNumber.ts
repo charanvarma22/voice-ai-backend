@@ -26,10 +26,10 @@ export async function autoAllocateNumberForUser(
 
     // Get available numbers
     const country = options?.country || 'US';
-    const areaCode = options?.areaCode;
+    const areaCode = options?.areaCode ? parseInt(options.areaCode, 10) : undefined;
 
     const availableNumbers = await twilioClient.availablePhoneNumbers(country)
-      .local.list({ areaCode, limit: 1 });
+      .local.list(areaCode ? { areaCode, limit: 1 } : { limit: 1 });
 
     if (availableNumbers.length === 0) {
       // Try without area code if area code search failed
