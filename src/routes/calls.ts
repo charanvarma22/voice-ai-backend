@@ -18,7 +18,7 @@ router.get('/', async (req: AuthRequest, res: Response) => {
   res.json({ calls: data });
 });
 
-router.get('/call/:id', async (req: AuthRequest, res: Response) => {
+router.get('/:id', async (req: AuthRequest, res: Response) => {
   const { id } = req.params;
   const { data: call, error: callErr } = await supabaseServiceClient
     .from('calls').select('*').eq('id', id).single();
