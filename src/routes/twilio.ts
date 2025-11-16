@@ -75,9 +75,21 @@ router.post('/webhook/twilio/media/:callSid', async (req, res) => {
 router.post('/webhook/twilio/recording', async (req, res) => {
   const { RecordingUrl, RecordingSid, CallSid, From, To, RecordingDuration } = req.body || {};
 
+  // Find which user owns this number
+  let userId: string | null = null;
+  if (To) {
+    const { data: number } = await supabaseServiceClient
+      .from('phone_numbers')
+      .select('user_id')
+      .eq('phone_e164', To)
+      .maybeSingle();
+    userId = number?.user_id || null;
+  }
+
   // Create a call record if not present
   await supabaseServiceClient.from('calls').upsert({
     twilio_call_sid: CallSid,
+    user_id: userId,
     from_number: From,
     to_number: To,
     status: 'recorded',
