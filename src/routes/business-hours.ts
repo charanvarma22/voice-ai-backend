@@ -23,7 +23,7 @@ const businessHoursBody = z.object({
 });
 
 // Get business hours
-router.get('/business-hours', async (_req: AuthRequest, res: Response) => {
+router.get('/', async (_req: AuthRequest, res: Response) => {
   const userId = _req.userId!;
   const { data, error } = await supabaseServiceClient
     .from('business_hours')
@@ -35,7 +35,7 @@ router.get('/business-hours', async (_req: AuthRequest, res: Response) => {
 });
 
 // Create or update business hours
-router.post('/business-hours', async (req: AuthRequest, res: Response) => {
+router.post('/', async (req: AuthRequest, res: Response) => {
   const userId = req.userId!;
   const parsed = businessHoursBody.safeParse(req.body);
   if (!parsed.success) return res.status(400).json({ error: parsed.error.flatten() });

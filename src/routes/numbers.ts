@@ -14,7 +14,7 @@ const purchaseBody = z.object({
   country: z.string().default('US')
 });
 
-router.post('/numbers/purchase', async (req: AuthRequest, res: Response) => {
+router.post('/purchase', async (req: AuthRequest, res: Response) => {
   const parsed = purchaseBody.safeParse(req.body);
   if (!parsed.success) return res.status(400).json({ error: parsed.error.flatten() });
 
@@ -59,7 +59,7 @@ router.post('/numbers/purchase', async (req: AuthRequest, res: Response) => {
 });
 
 // Release a phone number
-router.delete('/numbers/:id', async (req: AuthRequest, res: Response) => {
+router.delete('/:id', async (req: AuthRequest, res: Response) => {
   const { id } = req.params;
   const userId = req.userId!;
 
@@ -84,7 +84,7 @@ router.delete('/numbers/:id', async (req: AuthRequest, res: Response) => {
 });
 
 // List user's numbers
-router.get('/numbers', async (_req: AuthRequest, res: Response) => {
+router.get('/', async (_req: AuthRequest, res: Response) => {
   const userId = _req.userId!;
   const { data, error } = await supabaseServiceClient
     .from('phone_numbers')
@@ -95,7 +95,7 @@ router.get('/numbers', async (_req: AuthRequest, res: Response) => {
 });
 
 // Update number configuration
-router.patch('/numbers/:id/config', async (req: AuthRequest, res: Response) => {
+router.patch('/:id/config', async (req: AuthRequest, res: Response) => {
   const { id } = req.params;
   const userId = req.userId!;
   const { voiceUrl, statusCallback } = req.body;

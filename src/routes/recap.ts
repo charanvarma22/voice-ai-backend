@@ -6,7 +6,7 @@ import { AuthRequest } from '../middleware/auth.js';
 const router = Router();
 
 // Generate daily recap and send push notification
-router.post('/recap/daily', async (req: AuthRequest, res: Response) => {
+router.post('/daily', async (req: AuthRequest, res: Response) => {
   const userId = req.userId!;
 
   const today = new Date();

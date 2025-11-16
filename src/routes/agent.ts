@@ -15,7 +15,7 @@ const agentConfigBody = z.object({
 });
 
 // Get active agent config
-router.get('/agent', async (_req: AuthRequest, res: Response) => {
+router.get('/', async (_req: AuthRequest, res: Response) => {
   const userId = _req.userId!;
   const { data, error } = await supabaseServiceClient
     .from('agent_configs')
@@ -28,7 +28,7 @@ router.get('/agent', async (_req: AuthRequest, res: Response) => {
 });
 
 // Create or update agent config
-router.post('/agent', async (req: AuthRequest, res: Response) => {
+router.post('/', async (req: AuthRequest, res: Response) => {
   const userId = req.userId!;
   const parsed = agentConfigBody.safeParse(req.body);
   if (!parsed.success) return res.status(400).json({ error: parsed.error.flatten() });

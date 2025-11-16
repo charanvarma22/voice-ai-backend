@@ -6,7 +6,7 @@ import { AuthRequest } from '../middleware/auth.js';
 
 const router = Router();
 
-router.get('/calls', async (req: AuthRequest, res: Response) => {
+router.get('/', async (req: AuthRequest, res: Response) => {
   const userId = req.userId!;
   const { data, error } = await supabaseServiceClient
     .from('calls')

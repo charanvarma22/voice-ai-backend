@@ -16,7 +16,7 @@ const validateReceiptBody = z.object({
 });
 
 // StoreKit receipt validation
-router.post('/billing/validate', async (req: AuthRequest, res: Response) => {
+router.post('/validate', async (req: AuthRequest, res: Response) => {
   const userId = req.userId!;
   const parsed = validateReceiptBody.safeParse(req.body);
   if (!parsed.success) return res.status(400).json({ error: parsed.error.flatten() });
@@ -124,7 +124,7 @@ router.post('/billing/validate', async (req: AuthRequest, res: Response) => {
 });
 
 // Get user subscription
-router.get('/billing/subscription', async (_req: AuthRequest, res: Response) => {
+router.get('/subscription', async (_req: AuthRequest, res: Response) => {
   const userId = _req.userId!;
   const { data, error } = await supabaseServiceClient
     .from('subscriptions')

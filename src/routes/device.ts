@@ -12,7 +12,7 @@ const registerDeviceBody = z.object({
 });
 
 // Register device for push notifications
-router.post('/device/register', async (req: AuthRequest, res: Response) => {
+router.post('/register', async (req: AuthRequest, res: Response) => {
   const userId = req.userId!;
   const parsed = registerDeviceBody.safeParse(req.body);
   if (!parsed.success) return res.status(400).json({ error: parsed.error.flatten() });
@@ -34,7 +34,7 @@ router.post('/device/register', async (req: AuthRequest, res: Response) => {
 });
 
 // Unregister device
-router.delete('/device/:token', async (req: AuthRequest, res: Response) => {
+router.delete('/:token', async (req: AuthRequest, res: Response) => {
   const userId = req.userId!;
   const { token } = req.params;
 
